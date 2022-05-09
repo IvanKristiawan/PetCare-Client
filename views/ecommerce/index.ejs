@@ -1,0 +1,197 @@
+<% layout('layouts/boilerplate') %> 
+
+<style>
+    button {
+        background: none;
+        color: inherit;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;
+    }
+    a {
+        color: inherit; /* blue colors for links too */
+        text-decoration: inherit; /* no underline */
+    }
+    a:hover {
+        color: inherit;
+    }
+    .menu-wrapper {
+        border: 1px solid #A3A3A3;
+        border-radius: 5px;
+        min-height: 200px;
+        box-shadow: 1px 2px 2px #A3A3A3;
+    }
+    .menu-name-wrapper {
+        display: flex;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #A3A3A3;
+    }
+    .menu-name {
+        margin-left: 20px;
+    }
+    .arrow-img {
+        width: 30px;
+        height: 30px;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+    .img-handler {
+        width: 150px;
+        height: 150px;
+    }
+    .menu-title {
+        font-size: 15px;
+        font-weight: 300;
+    }
+    .input-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 40px;
+    }
+    .input-wrapper {
+        width: 900px;
+    }
+    .list-wrapper {
+        display: flex;
+    }
+    .card-wrapper {
+        align-items: center;
+        justify-content: center;
+    }
+    .body-text {
+        font-size: 15px;
+        font-weight: 300;
+    }
+    .gray {
+        color: #A3A3A3;
+    }
+    .btn-custom {
+        color: #FF3232;
+        border: 1px solid #FF3232;
+    }
+    .card {
+        margin: 10px 10px;
+        box-shadow: 1px 2px 2px #A3A3A3;
+    }
+    .card:hover {
+        box-shadow: 1px 4px 4px #A3A3A3;
+    }
+    .product-list {
+        width: 12rem;
+        min-height: 22rem;
+    }
+    .title-container {
+        min-height: 60px;
+    }
+    @media (max-width: 500px) {
+        .menu-title {
+            font-size: 20px;
+        }
+        .product-list {
+            width: 8rem;
+        }
+        .menu-title {
+            font-size: 15px;
+            font-weight: 300;
+        }
+        .center-text {
+            font-size: 14px;
+            margin-left: 10%;
+        }
+        .center-btn {
+            margin-left: 5%;
+        }
+        .img-handler {
+            width: 100px;
+            height: 100px;
+        }
+        .product-list {
+            min-height: 18rem;
+        }
+    }
+    @media (max-width: 800px) {
+        .input-wrapper {
+            width: 20rem;
+        }
+    }    
+</style>
+
+<div class="menu-wrapper">
+    <div class="menu-name-wrapper">
+        <div class="menu-img">
+            <a href="/">
+                <img class="arrow-img" src="https://res.cloudinary.com/dbtag5lau/image/upload/v1650355133/PetCare/icons/ArrowBackLogo.png">
+            </a>
+        </div>
+        <div class="menu-name">
+            <h1 class="menu-title">Beli Obat Hewan</h1>
+        </div>
+    </div>
+    <div class="input-container">
+        <form action="/beliObat/search" method="POST">
+        <div class="input-group mb-3 input-wrapper">
+            <input type="text" class="form-control" placeholder="Cari Obat Hewan" aria-label="Recipient's username" aria-describedby="basic-addon2" name="nama" id="nama">
+            <button class="input-group-text" id="basic-addon2" ><img src="https://res.cloudinary.com/dbtag5lau/image/upload/v1650355054/PetCare/icons/SearchLogo.png"></button>
+        </div>
+        </form>
+    </div>
+    <div class="lists-wrapper">
+        <div class="list-wrapper">
+            <div class="row">
+                <% stoks.forEach((stok, i) => { %> 
+                    <% if(i>=tempLowI && i<tempUpI) { %> 
+                        <% if(stok.jumlahStok > 0) {%>
+                            <div class="col-md-3 col-sm-6 col-6 card-container">
+                                <a href="/beliObat/<%= stok._id %>">
+                                    <div class="card card-wrapper product-list">
+                                        <% if(stok.images[0]) {%> 
+                                            <img src="<%= stok.images[0].url %>" class="card-img-top img-handler">
+                                        <% } else { %>     
+                                            <img src="https://res.cloudinary.com/dbtag5lau/image/upload/v1649486683/PetCare/icons/MainLogo.png" class="card-img-top img-handler">
+                                        <% } %>     
+                                        <div class="card-body">
+                                            <div class="title-container d-flex justify-content-center">
+                                                <h5 class="card-title menu-title"><%= stok.nama.substr(0, 25) %></h5>
+                                            </div>
+                                            <p class="card-text body-text gray center-text d-flex justify-content-center ">Per <%= stok.namaSatuan %></p>
+                                            <p class="card-text body-text center-text d-flex justify-content-center ">Rp. <%= stok.hargaJual %></p>
+                                            <div class="d-flex justify-content-center ">
+                                                <a href="/keranjang" class="btn btn-custom center-btn">Tambah</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        <% } %>     
+                    <% } %>
+                <% }) %>   
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mb-3">
+    <% if(stoks.length > 8) {%>
+        <% if(tempLowI == 0) {%> 
+            <form action="/beliObat/next" method="POST" style ='float: right;'>
+                <input type="text" name="lowI" id="lowI" value="<%= tempLowI %>" hidden>
+                <input type="text" name="upI" id="upI" value="<%= tempUpI %>" hidden>
+                <button class="btn btn-secondary">Next ></button>
+            </form>
+        <% } else { %>     
+            <form action="/beliObat/previous" method="POST" style ='float: left;'>
+                <input type="text" name="lowI" id="lowI" value="<%= tempLowI %>" hidden>
+                <input type="text" name="upI" id="upI" value="<%= tempUpI %>" hidden>
+                <button class="btn btn-secondary">< Previous</button>
+            </form>
+            <form action="/beliObat/next" method="POST" style ='float: right;'>
+                <input type="text" name="lowI" id="lowI" value="<%= tempLowI %>" hidden>
+                <input type="text" name="upI" id="upI" value="<%= tempUpI %>" hidden>
+                <button class="btn btn-secondary">Next ></button>
+            </form>
+        <% } %>     
+    <% } %>     
+</div>

@@ -1,0 +1,153 @@
+<% layout('layouts/boilerplate') %>
+
+<style>
+    a {
+        color: inherit; /* blue colors for links too */
+        text-decoration: inherit; /* no underline */
+    }
+    a:hover {
+        color: inherit;
+    }
+    .menu-wrapper {
+        border: 1px solid #A3A3A3;
+        border-radius: 5px;
+        min-height: 200px;
+        box-shadow: 1px 2px 2px #A3A3A3;
+    }
+    .menu-name-wrapper {
+        display: flex;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #A3A3A3;
+    }
+    .menu-name {
+        margin-left: 20px;
+    }
+    .arrow-img {
+        width: 30px;
+        height: 30px;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+    .menu-title {
+        font-size: 25px;
+        font-weight: 300;
+    }
+    .title {
+        font-size: 20px;
+        font-weight: 500;
+    }
+    .card-wrapper {
+        align-items: center;
+        justify-content: center;
+    }
+    .product-list {
+        width: 13rem;
+        min-height: 22rem;
+    }
+    .img-handler {
+        width: 200px;
+        height: 150px;
+    }
+    .menu-title {
+        font-size: 15px;
+        font-weight: 300;
+    }
+    .btn-custom {
+        color: #FF3232;
+        border: 1px solid #FF3232;
+    }
+    .body-text {
+        font-weight: 300;
+    }
+    @media (max-width: 500px) {
+        .img-handler {
+            width: 150px;
+            height: 130px;
+        }
+        .body-text {
+            font-size: 12px;
+            font-weight: 300;
+        }
+        .title {
+            font-size: 13px;
+        }
+    }    
+</style>
+
+<div class="menu-wrapper">
+    <div class="menu-name-wrapper">
+        <div class="menu-img">
+            <a href="/">
+                <img class="arrow-img" src="https://res.cloudinary.com/dbtag5lau/image/upload/v1650355133/PetCare/icons/ArrowBackLogo.png">
+            </a>
+        </div>
+        <div class="menu-name">
+            <h1 class="menu-title">Asuransi</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-6 card-container d-flex justify-content-center mb-4 mt-3">
+                <div class="card card-wrapper product-list">
+                    <img src="https://res.cloudinary.com/dbtag5lau/image/upload/v1649486683/PetCare/icons/MainLogo.png" class="card-img-top img-handler">
+                    <div class="card-body">
+                        <div class="title-container d-flex justify-content-center">
+                            <h5 class="card-title title">NAMA ASURANSI</h5>
+                        </div>
+                        <p class="card-text body-text d-flex justify-content-center" style="margin-bottom: 2px;">Kategori hewan:</p>
+                        <p class="card-text body-text" style="margin-bottom: 0;">&#8226; Kucing</p>
+                        <p class="card-text body-text">&#8226; Anjing</p>
+                        <p class="card-text body-text d-flex justify-content-center" style="margin-bottom: 2px;">Fasilitas:</p>
+                        <p class="card-text body-text" style="margin-bottom: 0;">&#8226; Konsultasi dokter gratis 2x/bulan</p>
+                        <p class="card-text body-text">&#8226; Pengantaran vitamin</p>
+                        <p class="card-text body-text d-flex justify-content-center ">Rp 50.000/bulan</p>
+                        <div class="d-flex justify-content-center ">
+                            <a href="/asuransi" class="btn btn-custom center-btn">Tambah</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-6 card-container d-flex justify-content-center mb-4 mt-3">
+                <div class="card card-wrapper product-list">
+                    <img src="https://res.cloudinary.com/dbtag5lau/image/upload/v1649486683/PetCare/icons/MainLogo.png" class="card-img-top img-handler">
+                    <div class="card-body">
+                        <div class="title-container d-flex justify-content-center">
+                            <h5 class="card-title title">NAMA ASURANSI</h5>
+                        </div>
+                        <p class="card-text body-text d-flex justify-content-center" style="margin-bottom: 2px;">Kategori hewan:</p>
+                        <p class="card-text body-text" style="margin-bottom: 0;">&#8226; Kucing</p>
+                        <p class="card-text body-text">&#8226; Anjing</p>
+                        <p class="card-text body-text d-flex justify-content-center" style="margin-bottom: 2px;">Fasilitas:</p>
+                        <p class="card-text body-text" style="margin-bottom: 0;">&#8226; Konsultasi dokter gratis 2x/bulan</p>
+                        <p class="card-text body-text">&#8226; Pengantaran vitamin</p>
+                        <p class="card-text body-text d-flex justify-content-center ">Rp 50.000/bulan</p>
+                        <div class="d-flex justify-content-center ">
+                            <a href="/asuransi" class="btn btn-custom center-btn">Tambah</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-6 card-container d-flex justify-content-center mb-4 mt-3">
+                <div class="card card-wrapper product-list">
+                    <img src="https://res.cloudinary.com/dbtag5lau/image/upload/v1649486683/PetCare/icons/MainLogo.png" class="card-img-top img-handler">
+                    <div class="card-body">
+                        <div class="title-container d-flex justify-content-center">
+                            <h5 class="card-title title">NAMA ASURANSI</h5>
+                        </div>
+                        <p class="card-text body-text d-flex justify-content-center" style="margin-bottom: 2px;">Kategori hewan:</p>
+                        <p class="card-text body-text" style="margin-bottom: 0;">&#8226; Kucing</p>
+                        <p class="card-text body-text">&#8226; Anjing</p>
+                        <p class="card-text body-text d-flex justify-content-center" style="margin-bottom: 2px;">Fasilitas:</p>
+                        <p class="card-text body-text" style="margin-bottom: 0;">&#8226; Konsultasi dokter gratis 2x/bulan</p>
+                        <p class="card-text body-text">&#8226; Pengantaran vitamin</p>
+                        <p class="card-text body-text d-flex justify-content-center ">Rp 50.000/bulan</p>
+                        <div class="d-flex justify-content-center ">
+                            <a href="/asuransi" class="btn btn-custom center-btn">Tambah</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>    

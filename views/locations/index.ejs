@@ -1,0 +1,164 @@
+<% layout('layouts/boilerplate') %> 
+
+<style>
+    a {
+        color: inherit; /* blue colors for links too */
+        text-decoration: inherit; /* no underline */
+    }
+    a:hover {
+        color: inherit;
+    }
+    .location-container {
+        transition: 0.3s;
+    }
+    .location-container:hover {
+        background-color: #D7DBFF;
+    }
+    .menu-wrapper {
+        border: 1px solid #A3A3A3;
+        border-radius: 5px;
+        min-height: 200px;
+        box-shadow: 1px 2px 2px #A3A3A3;
+    }
+    .menu-name-wrapper {
+        display: flex;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #A3A3A3;
+    }
+    .menu-name {
+        margin-left: 20px;
+    }
+    .arrow-img {
+        width: 30px;
+        height: 30px;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+    .menu-title {
+        font-size: 25px;
+        font-weight: 300;
+    }
+    .input-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 40px;
+    }
+    .input-wrapper {
+        width: 900px;
+    }
+    .body-text {
+        font-size: 15px;
+        font-weight: 300;
+    }
+    .mapBox-style {
+        width: 100%;
+        height: 100%;
+    }
+    .location-img {
+        width: 200px;
+    }
+    .nama-lokasi {
+        font-size: 25px;
+        font-weight: 400;
+    }
+    .detail-text {
+        font-size: 20px;
+        font-weight: 300;
+    }
+    @media (max-width: 500px) {
+        .menu-title {
+            font-size: 15px;
+            font-weight: 300;
+        }
+        .img-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .detail-flex {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .nama-lokasi {
+            font-size: 20px;
+        }
+        .detail-text {
+            font-size: 15px;
+        }
+    }
+</style>
+
+<div class="menu-wrapper">
+    <div class="menu-name-wrapper">
+        <div class="menu-img">
+            <a href="/">
+                <img class="arrow-img" src="https://res.cloudinary.com/dbtag5lau/image/upload/v1650355133/PetCare/icons/ArrowBackLogo.png">
+            </a>
+        </div>
+        <div class="menu-name">
+            <h1 class="menu-title">Lokasi Rumah Sakit Hewan</h1>
+        </div>
+    </div>
+    <div>
+        <div class="input-container">
+            <% if(tempLowI == 0) { %>
+                <div class="input-group mb-3 input-wrapper">
+                    <div id="map" style="width: 100%; height: 500px;"></div>
+                </div>
+            <% } %>     
+        </div>        
+    </div>
+    <% locations.forEach((location, i) => { %> 
+        <% if(i>=tempLowI && i<tempUpI) { %> 
+            <div class="location-container">
+                <hr>
+                <a href="/lokasi/<%= location._id %>">
+                    <div class="row">
+                        <% if(location.images[0]) {%> 
+                            <div class="col-md-3 col-sm-6 img-flex d-flex justify-content-center">
+                                <img class="location-img" src="<%= location.images[0].url %>">
+                            </div>
+                        <% } %> 
+                        <div class="col-md-9 col-sm-6 detail-flex">
+                            <h3 class="nama-lokasi"><%= location.title %></h3>
+                            <h5 class="detail-text" style="color: #757575;"><%= location.location.substring(0,80) %></h5>
+                            <h5 class="detail-text"><%= location.description.substring(0,80) %></h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        <% } %>
+    <% }) %>      
+</div>
+<div class="mb-3">
+    <% if(locations.length > 5) {%>
+        <% if(tempLowI == 0) {%> 
+            <form action="/lokasi/next" method="POST" style ='float: right;'>
+                <input type="text" name="lowI" id="lowI" value="<%= tempLowI %>" hidden>
+                <input type="text" name="upI" id="upI" value="<%= tempUpI %>" hidden>
+                <button class="btn btn-secondary">Selanjutnya ></button>
+            </form>
+        <% } else { %>     
+            <form action="/lokasi/previous" method="POST" style ='float: left;'>
+                <input type="text" name="lowI" id="lowI" value="<%= tempLowI %>" hidden>
+                <input type="text" name="upI" id="upI" value="<%= tempUpI %>" hidden>
+                <button class="btn btn-secondary">< Sebelumnya</button>
+            </form>
+            <form action="/lokasi/next" method="POST" style ='float: right;'>
+                <input type="text" name="lowI" id="lowI" value="<%= tempLowI %>" hidden>
+                <input type="text" name="upI" id="upI" value="<%= tempUpI %>" hidden>
+                <button class="btn btn-secondary">Selanjutnya ></button>
+            </form>
+        <% } %>     
+    <% } %>     
+</div>
+
+<script>
+    const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+    const locations = {features: <%- JSON.stringify(locations) %>};
+</script>
+<script src="/javascripts/clusterMap.js"></script>

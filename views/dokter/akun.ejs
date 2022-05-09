@@ -1,0 +1,58 @@
+<% layout('dokter/layouts/boilerplate') %> 
+
+<style>
+    p {
+        color: black;
+    }
+    .profile-img {
+        width: 200px;
+        height: 200px;
+    }
+    .profile-detail {
+        font-size: 20px;
+    }
+</style>
+
+<div>
+    <h4><%= findProfileDokter.nama %></h4>
+    <div class="carousel-wrapper d-flex">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+            <% findProfileDokter.images.forEach((img, i) => {%>
+                <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+                    <img src="<%= img.url %>" class="d-block w-100 profile-img" alt="...">
+                </div>
+            <% }) %>    
+            </div>
+            <% if(findProfileDokter.images.length > 1) {%> 
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                </button>
+            <% } %> 
+        </div>
+    </div>
+    <hr>
+    <h4 class="profile-detail mt-3">Email</h4>
+    <p><%= findProfileDokter.email %></p>
+    <hr>
+    <h4 class="profile-detail mt-3">Spesialis</h4>
+    <p><%= findProfileDokter.spesialis %></p>
+    <hr>
+    <h4 class="profile-detail mt-3">Pengalaman</h4>
+    <p><%= findProfileDokter.pengalaman %></p>
+    <hr>
+    <h4 class="profile-detail mt-3">Lulusan</h4>
+    <p><%= findProfileDokter.lulusan %></p>
+    <hr>
+    <h4 class="profile-detail mt-3">Tempat Praktik</h4>
+    <p><%= findProfileDokter.tempatPraktik %></p>
+    <hr>
+    <h4 class="profile-detail mt-3">Nomor STR</h4>
+    <p><%= findProfileDokter.nomorSTR %></p>
+    <hr>
+    <h4 class="profile-detail mt-3">Kontak</h4>
+    <p><%= findProfileDokter.kontak %></p>
+</div>

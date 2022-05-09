@@ -1,0 +1,181 @@
+<% layout('layouts/boilerplate') %> 
+
+<style>
+    button {
+        background: none;
+        color: inherit;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;
+    }
+    .carousel-control-next,
+    .carousel-control-prev /*, .carousel-indicators */ {
+        filter: invert(100%);
+    }
+    .main-detail-container {
+        display: flex;
+    }
+    .obat-img {
+        width: 350px;
+        height: 250px;
+    }
+    .main-detail-img {
+        flex: 1;
+    }
+    .main-detail-text {
+        flex: 3;
+        margin-left: 40px;
+        margin-top: 40px;
+    }
+    .btn-custom {
+        color: #FF3232;
+        border: 1px solid #FF3232;
+    }
+    .details-container {
+        margin-top: 50px;
+    }
+    .text-lowercase {
+        color: #A3A3A3; 
+        margin-left: 10px;
+    }
+    @media (max-width: 500px) {
+        .main-detail-container {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .main-detail-text {
+            margin-left: 0;
+        }
+        .price-text {
+            margin-left: 28%;
+        }
+        .resep-text {
+            margin-left: 5%;
+            font-size: 15px;
+        }
+        .btn-custom {
+            margin-left: 35%;
+        }
+        .text-lowercase-resep {
+            margin-left: 25%;
+        }
+    }
+</style>
+
+<div class="container">
+    <div class="input-container">
+        <div class="input-group mb-3 input-wrapper">
+            <input type="text" class="form-control" placeholder="Cari Obat Hewan" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <span class="input-group-text" id="basic-addon2"><img src="https://res.cloudinary.com/dbtag5lau/image/upload/v1650355054/PetCare/icons/SearchLogo.png"></span>
+        </div> 
+    </div>
+    <div class="main-detail-container">
+        <div class="main-detail-img">
+            <div class="carousel-wrapper">
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                    <% if(stok.images[0]) {%> 
+                        <% stok.images.forEach((img, i) => {%>
+                            <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+                                <img src="<%= img.url %>" class="d-block w-100 obat-img" alt="...">
+                            </div>
+                        <% }) %>    
+                    <% } else { %>
+                        <div class="">
+                            <img src="https://res.cloudinary.com/dbtag5lau/image/upload/v1649486683/PetCare/icons/MainLogo.png" class="d-block w-100 obat-img" alt="...">
+                        </div>
+                    <% } %>     
+                    </div>
+                    <% if(stok.images.length > 1) {%> 
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </button>
+                    <% } %> 
+                </div>
+            </div>
+        </div>
+        <div class="main-detail-text">
+            <h1><%= stok.nama %></h1>
+            <div class="d-flex price-text">
+                <p>Rp <%= stok.hargaJual %></p>
+                <p class="text-lowercase">Per <%= stok.namaSatuan %></p>
+            </div>
+            <p class="resep-text text-lowercase-resep" style="color: #A3A3A3;">*<%= stok.resepDokter %></p>
+
+            <% if(carts.length > 0) {%>
+                <% for(let i=0; i < carts.length; i++) {%> 
+                    <% if(carts[i].stokId === stok._id.toString() && JSON.stringify(carts[i].userId) === JSON.stringify(user._id)) { %>
+                        <!-- PUT -->
+                        <form action="/beliObat/<%= stok._id %>?_method=PUT" method="POST">
+                            <input type="text" id="stokId" name="stokId" value="<%= stok._id %>" hidden>
+                            <input type="text" id="userId" name="userId" value="<%= user._id %>" hidden>
+                            <% if(stok.images[0]) {%> 
+                                <input type="text" id="image" name="image" value="<%= stok.images[0].url %>" hidden>
+                            <% } %>     
+                            <input type="text" id="nama" name="nama" value="<%= stok.nama %>" hidden>
+                            <input type="text" id="quantity" name="quantity" value="<%= carts[i].quantity+1 %>" hidden>
+                            <input type="text" id="namaSatuan" name="namaSatuan" value="<%= stok.namaSatuan %>" hidden>
+                            <input type="text" id="resepDokter" name="resepDokter" value="<%= stok.resepDokter %>" hidden>
+                            <input type="text" id="hargaJual" name="hargaJual" value="<%= stok.hargaJual %>" hidden>
+                            <button class="btn btn-custom center-btn">Tambah</button>
+                        </form>
+                    <% break; } else if(i === carts.length-1) {%>
+                        <!-- POST -->
+                        <form action="/beliObat/<%= stok._id %>" method="POST">
+                            <input type="text" id="stokId" name="stokId" value="<%= stok._id %>" hidden>
+                            <input type="text" id="userId" name="userId" value="<%= user._id %>" hidden>
+                            <% if(stok.images[0]) {%> 
+                                <input type="text" id="image" name="image" value="<%= stok.images[0].url %>" hidden>
+                            <% } %>     
+                            <input type="text" id="nama" name="nama" value="<%= stok.nama %>" hidden>
+                            <input type="text" id="quantity" name="quantity" value="1" hidden>
+                            <input type="text" id="namaSatuan" name="namaSatuan" value="<%= stok.namaSatuan %>" hidden>
+                            <input type="text" id="resepDokter" name="resepDokter" value="<%= stok.resepDokter %>" hidden>
+                            <input type="text" id="hargaJual" name="hargaJual" value="<%= stok.hargaJual %>" hidden>
+                            <button class="btn btn-custom center-btn">Tambah</button>
+                        </form>
+                    <% } %>     
+                <% } %> 
+            <% } else { %>     
+                <form action="/beliObat/<%= stok._id %>" method="POST">
+                    <input type="text" id="stokId" name="stokId" value="<%= stok._id %>" hidden>
+                    <input type="text" id="userId" name="userId" value="<%= user._id %>" hidden>
+                    <% if(stok.images[0]) {%> 
+                        <input type="text" id="image" name="image" value="<%= stok.images[0].url %>" hidden>
+                    <% } %>     
+                    <input type="text" id="nama" name="nama" value="<%= stok.nama %>" hidden>
+                    <input type="text" id="quantity" name="quantity" value="1" hidden>
+                    <input type="text" id="namaSatuan" name="namaSatuan" value="<%= stok.namaSatuan %>" hidden>
+                    <input type="text" id="resepDokter" name="resepDokter" value="<%= stok.resepDokter %>" hidden>
+                    <input type="text" id="hargaJual" name="hargaJual" value="<%= stok.hargaJual %>" hidden>
+                    <button class="btn btn-custom center-btn">Tambah</button>
+                </form>
+            <% } %> 
+
+        </div>
+    </div>
+    <div class="details-container">
+        <% if(stok.deskripsi) { %> 
+            <h3>Deskripsi</h3>
+            <p style="font-weight: 300;"><%= stok.deskripsi %></p>
+        <% } %>     
+        <% if(stok.indikasiUmum) { %> 
+            <h3>Indikasi Umum</h3>
+            <p style="font-weight: 300;"><%= stok.indikasiUmum %></p>
+        <% } %>     
+        <% if(stok.komposisi) { %> 
+            <h3>Komposisi</h3>
+            <p style="font-weight: 300;"><%= stok.komposisi %></p>
+        <% } %>     
+        <% if(stok.aturanPakai) { %> 
+            <h3>Aturan Pakai</h3>
+            <p style="font-weight: 300;"><%= stok.aturanPakai %></p>
+        <% } %>     
+    </div>
+</div>

@@ -1,0 +1,141 @@
+<% layout('layouts/boilerplate') %> 
+
+<style>
+    a {
+        color: inherit; /* blue colors for links too */
+        text-decoration: inherit; /* no underline */
+    }
+    a:hover {
+        color: inherit;
+    }
+    .menu-wrapper {
+        border: 1px solid #A3A3A3;
+        border-radius: 5px;
+        min-height: 200px;
+        box-shadow: 1px 2px 2px #A3A3A3;
+    }
+    .menu-name-wrapper {
+        display: flex;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #A3A3A3;
+    }
+    .menu-name {
+        margin-left: 20px;
+    }
+    .arrow-img {
+        width: 30px;
+        height: 30px;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+    .menu-title {
+        font-size: 25px;
+        font-weight: 300;
+    }
+    .input-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 40px;
+    }
+    .input-wrapper {
+        width: 900px;
+    }
+    .list-wrapper {
+        display: flex;
+        transition: 0.3s;
+        border-top: 1px solid #A3A3A3; 
+        padding-top: 10px; 
+        margin-bottom: 10px;
+    }
+    .list-wrapper:hover {
+        background-color: #D7DBFF;
+    }
+    .card-wrapper {
+        align-items: center;
+        justify-content: center;
+    }
+    .body-text {
+        font-size: 15px;
+        font-weight: 300;
+    }
+    .gray {
+        color: #A3A3A3;
+    }
+    .btn-custom {
+        color: #FF3232;
+        border: 1px solid #FF3232;
+    }
+    .card {
+        margin: 10px 10px;
+        box-shadow: 1px 2px 2px #A3A3A3;
+    }
+    .dokter-list {
+        width: 12rem;
+    }
+    @media (max-width: 500px) {
+        .menu-title {
+            font-size: 20px;
+        }
+        .dokter-list {
+            width: 8rem;
+        }
+        .menu-title {
+            font-size: 15px;
+            font-weight: 300;
+        }
+        .center-text {
+            font-size: 14px;
+        }
+    }
+    @media (max-width: 800px) {
+        .input-wrapper {
+            width: 20rem;
+        }
+    }    
+</style>
+
+<div class="menu-wrapper">
+    <div class="menu-name-wrapper">
+        <div class="menu-img">
+            <a href="/dokter">
+                <img class="arrow-img" src="https://res.cloudinary.com/dbtag5lau/image/upload/v1650355133/PetCare/icons/ArrowBackLogo.png">
+            </a>
+        </div>
+        <div class="menu-name">
+            <h1 class="menu-title">Chat Pasien</h1>
+        </div>
+    </div>
+    <div class="input-container">
+        <form action="/chat/rooms/search" method="POST">
+            <div class="input-group mb-3 input-wrapper">
+                <input type="text" class="form-control" placeholder="Cari Dokter Hewan" aria-label="Recipient's username" aria-describedby="basic-addon2" id="nama" name="nama">
+                <span class="input-group-text" id="basic-addon2"><img src="https://res.cloudinary.com/dbtag5lau/image/upload/v1650355054/PetCare/icons/SearchLogo.png"></span>
+            </div>
+        </form>
+    </div>
+    <div class="lists-wrapper">
+        <% for(let room of findAllRoom){ %> 
+            <% for(let name of room.name){ %> 
+                <% if(name != user.username){ %> 
+                    <a href="/chat/rooms/<%= room._id %>">
+                        <div class="list-wrapper">
+                            <div class="row">
+                                <div class="col d-flex">
+                                    <div>
+                                        <img src="https://res.cloudinary.com/dbtag5lau/image/upload/v1649486683/PetCare/icons/MainLogo.png" style="width: 100px; height: 100px; margin-left: 10px; border: 1px solid #A3A3A3; border-radius: 10px;">
+                                    </div>
+                                    <div class="mt-2 ml-2">
+                                        <h4><%= name %></h4>
+                                        <p>Last Message</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>   
+                <% } %> 
+            <% } %>         
+        <% } %>     
+    </div>
+</div>

@@ -1,0 +1,131 @@
+<% layout('layouts/boilerplate') %> 
+
+<style>
+    .keranjang-container {
+        display: flex;
+        flex-direction: column;
+    }
+    .img-sizing {
+        width: 300px;
+    }
+    .resep-text {
+        font-size: 15px;
+    }
+    .decrement {
+        cursor: pointer;
+    }
+    .increment {
+        cursor: pointer;
+    }
+    .product-name {
+        font-weight: 300;
+    }
+    .detail-text {
+        margin-top: 40px;
+    }
+    .order-summary {
+        margin-top: 50px;
+        border: 1px solid #A3A3A3;
+        box-shadow: 1px 2px 2px #A3A3A3;
+        border-radius: 10px;
+        background-color: #f1f1f1;
+    }
+    .btn-custom {
+        color: rgb(0, 185, 0);
+        border: 1px solid rgb(0, 185, 0);
+    }
+    .inc-dec-btn {
+        background: none;
+        color: inherit;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;
+        margin-right: 15px;
+        font-size: 20px;
+    }
+    @media (max-width: 500px) {
+        .img-sizing {
+            width: 250px;
+        }
+        .detail-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .detail-img {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+</style>
+
+<div class="keranjang-container">
+    <h1 class="d-flex justify-content-center">KERANJANG</h1>
+    <div class="barang-container">
+        <% for(let cart of carts) {%>
+            <% if(cart.quantity > 0) {%>
+                <div class="row">
+                    <hr>
+                    <div class="col-md-4 detail-img">
+                        <img class="img-sizing" src="<%= cart.image %>">
+                    </div>
+                    <div class="col-md-8 detail-text">
+                        <h2 class="product-name"><%= cart.nama %></h2>
+                        <div class="d-flex price-text">
+                            <p><%= cart.hargaJual %></p>
+                            <p style="color: #A3A3A3; margin-left: 10px;">Per <%= cart.namaSatuan %></p>
+                        </div>
+                        <p class="resep-text text-lowercase" style="color: #A3A3A3;">*<%= cart.resepDokter %></p>
+                        <div class="jumlah-container d-flex">
+                            
+                            <!-- Decrement -->
+                            <form action="/keranjang/<%= cart.stokId %>?_method=PUT" method="POST">
+                                <input type="text" id="stokId" name="stokId" value="<%= cart.stokId %>" hidden>
+                                <input type="text" id="userId" name="userId" value="<%= cart.userId %>" hidden>
+                                <input type="text" id="nama" name="nama" value="<%= cart.nama %>" hidden>
+                                <input type="text" id="quantity" name="quantity" value="<%= cart.quantity-1 %>" hidden>
+                                <input type="text" id="namaSatuan" name="namaSatuan" value="<%= cart.namaSatuan %>" hidden>
+                                <input type="text" id="resepDokter" name="resepDokter" value="<%= cart.resepDokter %>" hidden>
+                                <input type="text" id="hargaJual" name="hargaJual" value="<%= cart.hargaJual %>" hidden>
+                                <button class="inc-dec-btn">-</button>
+                            </form>
+                            
+                            <h4 class="mr-3"><%= cart.quantity %></h4>
+    
+                            <!-- Increment -->
+                            <form action="/keranjang/<%= cart.stokId %>?_method=PUT" method="POST">
+                                <input type="text" id="stokId" name="stokId" value="<%= cart.stokId %>" hidden>
+                                <input type="text" id="userId" name="userId" value="<%= cart.userId %>" hidden>
+                                <input type="text" id="nama" name="nama" value="<%= cart.nama %>" hidden>
+                                <input type="text" id="quantity" name="quantity" value="<%= cart.quantity+1 %>" hidden>
+                                <input type="text" id="namaSatuan" name="namaSatuan" value="<%= cart.namaSatuan %>" hidden>
+                                <input type="text" id="resepDokter" name="resepDokter" value="<%= cart.resepDokter %>" hidden>
+                                <input type="text" id="hargaJual" name="hargaJual" value="<%= cart.hargaJual %>" hidden>
+                                <button class="inc-dec-btn">+</button>
+                            </form>
+                        </div>
+                    </div> 
+                </div>
+            <% } %>     
+        <% } %>     
+        <div class="order-summary">
+            <h1 class="product-name d-flex justify-content-center">ORDER SUMMARY</h1>
+            <p class="d-flex justify-content-center">Subtotal</p>
+            <p class="d-flex justify-content-center font-weight-light">Rp <%= totalPrice %></p>
+            <p class="d-flex justify-content-center">Biaya Ongkir</p>
+            <p class="d-flex justify-content-center font-weight-light">Rp 5.000</p>
+            <p class="d-flex justify-content-center">Diskon</p>
+            <p class="d-flex justify-content-center font-weight-light">-Rp 5.000</p>
+            <hr>
+            <p class="d-flex justify-content-center">Total</p>
+            <p class="d-flex justify-content-center font-weight-light">Rp <%= totalPrice %></p>
+            <div class="d-flex justify-content-center mb-4">
+                <a href="/keranjang" class="btn btn-custom center-btn">Bayar</a>
+            </div>
+        </div>
+    </div>
+</div>

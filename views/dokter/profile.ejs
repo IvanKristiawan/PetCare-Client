@@ -1,0 +1,137 @@
+<% layout('dokter/layouts/boilerplate') %> 
+
+<div class="container new-container">
+    <% if(findProfileDokter) {%> 
+        <!-- PUT -->
+        <h4>EDIT PROFILE DOKTER</h4>
+        <form action="/dokter/profile?_method=PUT" method="POST" class="new-form" enctype="multipart/form-data">
+            <p>Foto Profile</p>
+            <div class="input-group mb-3">
+                <input type="file" class="form-control" id="image" name="image" multiple>
+            </div>
+            <% findProfileDokter.images.forEach(function(img, i) { %> 
+                <div class="mb-3">
+                    <img src="<%= img.thumbnail %> " alt="">
+                    <div class="form-check-inline">
+                        <input type="checkbox" id="image-<%= i %>" name="deleteImages[]" value="<%= img.filename %>">
+                    </div>
+                    <label for="image-<%= i %>">Hapus</label>
+                </div>
+            <% }) %>     
+            <input type="text" id="_id" name="_id" value="<%= user._id %>" hidden>
+            <input type="text" id="email" name="email" value="<%= user.email %>" hidden>
+            <input type="text" id="nama" name="nama" value="<%= user.username %>" hidden>
+            <div class="input-group mb-3">
+                <div class="col-md-2">
+                    <span class="input-group-text text-light bg-dark" id="inputGroup-sizing-default">Spesialis</span>
+                </div>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="spesialis" id="spesialis" value="<%= findProfileDokter.spesialis %>">
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-md-2">
+                    <span class="input-group-text text-light bg-dark" id="inputGroup-sizing-default">Pengalaman</span>
+                </div>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"  name="pengalaman" id="pengalaman" value="<%= findProfileDokter.pengalaman %>">
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-md-2">
+                    <span class="input-group-text text-light bg-dark" id="inputGroup-sizing-default">Lulusan</span>
+                </div>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"  name="lulusan" id="lulusan" value="<%= findProfileDokter.lulusan %>">
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-md-2">
+                    <span class="input-group-text text-light bg-dark" id="inputGroup-sizing-default">Tempat praktik</span>
+                </div>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="tempatPraktik" id="tempatPraktik" value="<%= findProfileDokter.tempatPraktik %>">
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-md-2">
+                    <span class="input-group-text text-light bg-dark" id="inputGroup-sizing-default">Nomor STR</span>
+                </div>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="nomorSTR" id="nomorSTR" value="<%= findProfileDokter.nomorSTR %>">
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-md-2">
+                    <span class="input-group-text text-light bg-dark" id="inputGroup-sizing-default">Kontak</span>
+                </div>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="kontak" id="kontak" value="<%= findProfileDokter.kontak %>">
+                </div>
+            </div>
+          <button class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    <% } else { %>     
+        <!-- POST -->
+        <h4>UPLOAD PROFILE DOKTER</h4>
+        <form action="/dokter/profile" method="POST" class="new-form" enctype="multipart/form-data">
+            <p>Foto Profile</p>
+            <div class="input-group mb-3">
+                <input type="file" class="form-control" id="image" name="image" multiple>
+            </div>
+            <input type="text" id="_id" name="_id" value="<%= user._id %>" hidden>
+            <input type="text" id="email" name="email" value="<%= user.email %>" hidden>
+            <input type="text" id="nama" name="nama" value="<%= user.username %>" hidden>
+            <div class="input-group mb-3">
+                <div class="col-md-2">
+                    <span class="input-group-text text-light bg-dark" id="inputGroup-sizing-default">Spesialis</span>
+                </div>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="spesialis" id="spesialis">
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-md-2">
+                    <span class="input-group-text text-light bg-dark" id="inputGroup-sizing-default">Pengalaman</span>
+                </div>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"  name="pengalaman" id="pengalaman" placeholder="tahun">
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-md-2">
+                    <span class="input-group-text text-light bg-dark" id="inputGroup-sizing-default">Lulusan</span>
+                </div>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"  name="lulusan" id="lulusan">
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-md-2">
+                    <span class="input-group-text text-light bg-dark" id="inputGroup-sizing-default">Tempat praktik</span>
+                </div>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="tempatPraktik" id="tempatPraktik">
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-md-2">
+                    <span class="input-group-text text-light bg-dark" id="inputGroup-sizing-default">Nomor STR</span>
+                </div>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="nomorSTR" id="nomorSTR">
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-md-2">
+                    <span class="input-group-text text-light bg-dark" id="inputGroup-sizing-default">Kontak</span>
+                </div>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="kontak" id="kontak">
+                </div>
+            </div>
+          <button class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    <% } %>     

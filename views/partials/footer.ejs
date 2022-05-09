@@ -1,0 +1,106 @@
+<style>
+    .wrapper {
+        display: flex;
+        background-color: #D7DBFF;
+    }
+    .footer-wrapper {
+        flex: 1;
+        padding-left: 10px;
+        padding-top: 10px;
+        padding-bottom: 20px;
+    }
+    .petcare-img {
+        width: 150px;
+    }
+    .contact-img {
+        width: 30px;
+        height: 30px;
+        margin-right: 20px;
+    }
+    .heading1 {
+        font-size: 35px;
+        font-weight: 500;
+    }
+    .heading2 {
+        font-size: 18px;
+        font-weight: 300;
+    }
+    .pointer {
+        cursor: pointer;
+    }
+    @media (max-width: 500px) {
+        .wrapper {
+            flex-direction: column;
+        }
+        .link {
+            display: none;
+        }
+        .heading1 {
+            font-size: 25px;
+            font-weight: 500;
+        }
+        .contact-img {
+            width: 30px;
+            height: 30px;
+            margin-right: 20px;
+        }
+        .main-footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-left: 0;
+            justify-content: center;
+        }
+    }
+</style>
+
+<footer class="mt-auto">
+<div class="wrapper">
+    <div class="footer-wrapper main-footer">
+        <a href=""><img class="petcare-img" src="https://res.cloudinary.com/dbtag5lau/image/upload/v1650278820/PetCare/icons/PetCareLogo.png"></a>
+        <p class="heading2 mb-4 mt-3">Pelayanan kesehatan hewan 
+            <br> online no.1 di Indonesia. 
+            <br> Mulai dari konsultasi dokter,
+            <br> beli obat, sampai berlangganan
+            <br> asuransi semuanya ada disini</p>
+        <div class="contact-items">
+            <a href=""><img class="contact-img" src="https://res.cloudinary.com/dbtag5lau/image/upload/v1650278820/PetCare/icons/FacebookLogo.png"></a>
+            <a href=""><img class="contact-img" src="https://res.cloudinary.com/dbtag5lau/image/upload/v1650278820/PetCare/icons/InstagramLogo.png"></a>
+            <a href=""><img class="contact-img" src="https://res.cloudinary.com/dbtag5lau/image/upload/v1650278820/PetCare/icons/WhatsappLogo.png"></a>
+            <a href=""><img class="contact-img" src="https://res.cloudinary.com/dbtag5lau/image/upload/v1650278819/PetCare/icons/TwitterLogo.png"></a>
+        </div>
+    </div>
+    <div class="footer-wrapper link">
+        <h1 class="heading1">Link</h1>
+        <div class="links-wrapper d-flex">
+            <div class="link-wrapper mr-4 mt-3">
+                <a href="/chat"><p class="heading2 pointer">Chat Dokter</p></a>
+                <p class="heading2 pointer">Telepon Dokter</p>
+                <a href="/beliObat"><p class="heading2 pointer">Beli Obat</p></a>
+                <a href="/lokasi"><p class="heading2 pointer">Lokasi RSH</p></a>
+            </div>
+            <div class="link-wrapper mt-3">
+                <a href="/asuransi"><p class="heading2 pointer">Asuransi</p></a>
+                <a href="/adopsi"><p class="heading2 pointer">Adopsi</p></a>
+                <a href="/keranjang"><p class="heading2 pointer">Cart</p></a>
+                <a href="/login"><p class="heading2 pointer">My Account</p></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-wrapper">
+        <h1 class="mb-3 heading1">Kontak</h1>
+        <div class="kontak-wrapper pointer d-flex mb-2">
+            <img class="contact-img" src="https://res.cloudinary.com/dbtag5lau/image/upload/v1650278820/PetCare/icons/MapsLogo.png">
+            <p class="heading2">Jl. Babarsari, Yogyakarta</p>
+        </div>
+        <div class="kontak-wrapper pointer d-flex mb-2">
+            <img class="contact-img" src="https://res.cloudinary.com/dbtag5lau/image/upload/v1650278821/PetCare/icons/PhoneLogo.png">
+            <p class="heading2">0895123456</p>
+        </div>
+        <div class="kontak-wrapper pointer d-flex mb-2">
+            <img class="contact-img" src="https://res.cloudinary.com/dbtag5lau/image/upload/v1650278820/PetCare/icons/EmailLogo.png">
+            <p class="heading2">petcare@gmail.com</p>
+        </div>
+    </div>
+</div>
+</footer>

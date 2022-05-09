@@ -1,0 +1,178 @@
+<% layout('layouts/boilerplate') %> 
+
+<style>
+    a {
+        color: inherit; /* blue colors for links too */
+        text-decoration: inherit; /* no underline */
+    }
+    a:hover {
+        color: inherit;
+    }
+    .menu-wrapper {
+        border: 1px solid #A3A3A3;
+        border-radius: 5px;
+        min-height: 200px;
+        box-shadow: 1px 2px 2px #A3A3A3;
+    }
+    .menu-name-wrapper {
+        display: flex;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #A3A3A3;
+    }
+    .menu-name {
+        margin-left: 20px;
+    }
+    .arrow-img {
+        width: 30px;
+        height: 30px;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+    .menu-title {
+        font-size: 25px;
+        font-weight: 300;
+    }
+    .input-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 40px;
+    }
+    .input-wrapper {
+        width: 900px;
+    }
+    .list-wrapper {
+        display: flex;
+    }
+    .card-wrapper {
+        align-items: center;
+        justify-content: center;
+        width: 320px;
+    }
+    .body-text {
+        font-size: 15px;
+        font-weight: 300;
+    }
+    .gray {
+        color: #A3A3A3;
+    }
+    .btn-custom {
+        color: #FF3232;
+        border: 1px solid #FF3232;
+    }
+    .card {
+        margin: 10px 10px;
+        box-shadow: 1px 2px 2px #A3A3A3;
+    }
+    .dokter-list {
+        width: 12rem;
+    }
+    .center-small-img {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .dokter-img {
+        width: 100px; 
+        height: 100px; 
+        margin-top: 20px; 
+        margin-left: 10px; 
+        border: 1px solid #A3A3A3; 
+        border-radius: 10px;
+    }
+    .nama-dokter {
+        font-size: 15px;
+    }
+    @media (max-width: 500px) {
+        .menu-title {
+            font-size: 20px;
+        }
+        .dokter-list {
+            width: 8rem;
+        }
+        .menu-title {
+            font-size: 15px;
+            font-weight: 300;
+        }
+        .center-text {
+            font-size: 14px;
+        }
+        .input-wrapper {
+            width: 20rem;
+        }
+    }
+    @media (max-width: 800px) {
+        .input-wrapper {
+            width: 20rem;
+        }
+        .dokter-img {
+            width: 80px; 
+            height: 80px; 
+        }
+        .nama-dokter {
+            font-size: 13px;
+        }
+        .pengalaman-text {
+            font-size: 13px;
+        }
+        .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+</style>
+
+<div class="menu-wrapper">
+    <div class="menu-name-wrapper">
+        <div class="menu-img">
+            <a href="/">
+                <img class="arrow-img" src="https://res.cloudinary.com/dbtag5lau/image/upload/v1650355133/PetCare/icons/ArrowBackLogo.png">
+            </a>
+        </div>
+        <div class="menu-name">
+            <h1 class="menu-title">Chat Dokter Hewan</h1>
+        </div>
+    </div>
+    <div class="input-container">
+        <form action="/chat/search" method="POST">
+            <div class="input-group mb-3 input-wrapper">
+                <input type="text" class="form-control" placeholder="Cari Dokter Hewan" aria-label="Recipient's username" aria-describedby="basic-addon2" name="nama" id="nama">
+                <button class="input-group-text" id="basic-addon2" ><img src="https://res.cloudinary.com/dbtag5lau/image/upload/v1650355054/PetCare/icons/SearchLogo.png"></button>
+            </div>
+        </form>
+    </div>
+    <div class="lists-wrapper">
+        <div class="list-wrapper">
+            <div class="row">
+                <% for(let dokter of allDokter) {%> 
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 card-container">
+                        <form action="/chat" method="POST">
+                            <div class="card mb-3 card-wrapper">
+                                <div class="row g-0">
+                                  <div class="col-lg-4 center-small-img">
+                                    <img src="<%= dokter.images[0].url %>" class="img-fluid rounded-start dokter-img">
+                                  </div>
+                                  <div class="col-lg-8">
+                                    <div class="card-body">
+                                      <h5 class="card-title d-flex justify-content-center nama-dokter"><%= dokter.nama.substr(0, 20); %></h5>
+                                      <p class="card-text d-flex justify-content-center"><small class="text-muted">Dokter <%= dokter.spesialis %></small></p>
+                                      <p class="card-text d-flex justify-content-center pengalaman-text">Pengalaman: <%= dokter.pengalaman %></p>
+                                      <input type="text" name="room" value="a" hidden>
+                                      <input type="text" name="name" value="<%= user.username %>" hidden>
+                                      <input type="text" name="name" value="<%= dokter.nama %>" hidden>
+                                      <div class="d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-custom">Chat</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                <% } %>     
+            </div>
+        </div>
+    </div>
+</div>
