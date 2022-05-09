@@ -70,30 +70,30 @@ app.use((req, res, next) => {
 })
 
 // Routing User
-app.use('/', checkUserAuth, userRoutes);
+app.use('/', userRoutes);
 // Routing beliObat
-app.use('/beliObat', checkUserAuth, beliObatRoutes);
+app.use('/beliObat', beliObatRoutes);
 // Routing Keranjang
-app.use('/keranjang', checkUserAuth, keranjangRoutes);
+app.use('/keranjang', keranjangRoutes);
 // Routing Lokasi
-app.use('/lokasi', checkUserAuth, lokasiRoutes);
+app.use('/lokasi', lokasiRoutes);
 // Routing Review
-app.use('/lokasi/:id/reviews', checkUserAuth, reviewRoutes);
+app.use('/lokasi/:id/reviews', reviewRoutes);
 // Routing Adopsi
-app.use('/adopsi', checkUserAuth, adopsiRoutes);
+app.use('/adopsi', adopsiRoutes);
 // Routing Dokter Mode
-app.use('/dokter', checkUserAuth, dokterRoutes);
+app.use('/dokter', dokterRoutes);
 // Routing Chat
-app.use('/chat', checkUserAuth, chatRoutes);
+app.use('/chat', chatRoutes);
 // Routing Asuransi
-app.use('/asuransi', checkUserAuth, asuransiRoutes);
+app.use('/asuransi', asuransiRoutes);
 // Routing About Us
-app.get('/aboutUs', checkUserAuth, async(req, res) => {
+app.get('/aboutUs', async(req, res) => {
     res.render('aboutUs');
 })
 
 // Routing Main Index
-app.get('/', checkUserAuth, async(req, res) => {
+app.get('/', async(req, res) => {
     user = {};
     let isDokter = false;
     if(req.user != undefined){
@@ -104,7 +104,7 @@ app.get('/', checkUserAuth, async(req, res) => {
     res.render('index', {isDokter});
 })
 
-app.all('*', checkUserAuth, (req, res, next) => {
+app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404));
 })
 
@@ -113,11 +113,6 @@ app.use((err, req, res, next) => {
     if(!err.message) err.message = 'Something went wrong!';
     res.status(statusCode).render('error', {err});
 })
-
-function checkUserAuth(req, res, next) {
-    if (req.session.user) return next();
-    return next(new NotAuthorizedError());
-  }
 
 // Use Port
 const port = process.env.PORT || 3000;
