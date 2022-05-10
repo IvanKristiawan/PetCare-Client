@@ -50,28 +50,32 @@
             margin-left: 0;
         }
         .price-text {
-            margin-left: 28%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .resep-text {
-            margin-left: 5%;
             font-size: 15px;
         }
         .btn-custom {
-            margin-left: 35%;
+            margin-left: 33%;
         }
         .text-lowercase-resep {
-            margin-left: 25%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .obat-img {
+            width: 250px;
+            height: 250px;
+        }
+        .obat-title {
+            font-size: 20px;
         }
     }
 </style>
 
 <div class="container">
-    <div class="input-container">
-        <div class="input-group mb-3 input-wrapper">
-            <input type="text" class="form-control" placeholder="Cari Obat Hewan" aria-label="Recipient's username" aria-describedby="basic-addon2">
-            <span class="input-group-text" id="basic-addon2"><img src="https://res.cloudinary.com/dbtag5lau/image/upload/v1650355054/PetCare/icons/SearchLogo.png"></span>
-        </div> 
-    </div>
     <div class="main-detail-container">
         <div class="main-detail-img">
             <div class="carousel-wrapper">
@@ -80,7 +84,7 @@
                     <% if(stok.images[0]) {%> 
                         <% stok.images.forEach((img, i) => {%>
                             <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
-                                <img src="<%= img.url %>" class="d-block w-100 obat-img" alt="...">
+                                <img src="<%= img.url %>" class="d-block obat-img" alt="...">
                             </div>
                         <% }) %>    
                     <% } else { %>
@@ -101,7 +105,7 @@
             </div>
         </div>
         <div class="main-detail-text">
-            <h1><%= stok.nama %></h1>
+            <h1 class="obat-title"><%= stok.nama %></h1>
             <div class="d-flex price-text">
                 <p>Rp <%= stok.hargaJual %></p>
                 <p class="text-lowercase">Per <%= stok.namaSatuan %></p>

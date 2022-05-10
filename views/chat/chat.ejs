@@ -110,10 +110,10 @@
     }
     @media (max-width: 500px) {
         .my-text {
-            width: 60%;
+            width: 70%;
         }
         .your-text {
-            width: 60%;
+            width: 70%;
         }
         p {
             font-size: 10px;
@@ -130,6 +130,9 @@
         }
         .center-text {
             font-size: 14px;
+        }
+        .text {
+            font-size: 13px;
         }
     }
 </style>
@@ -164,12 +167,12 @@
             <% if(message.name == user.username) {%> 
                 <div class="my-text">
                     <p class="detail-my-time"><%= message.time %></p>
-                    <p class="m-2" style="font-weight: 300;"><%= message.message %></p>
+                    <p class="m-2 text" style="font-weight: 300;"><%= message.message %></p>
                 </div>
             <% } else if (message.name == tempName) {%>  
                 <div class="your-text">
                     <p class="detail-your-time"><%= message.time %></p>
-                    <p class="m-2" style="font-weight: 300;"><%= message.message %></p>
+                    <p class="m-2 text" style="font-weight: 300;"><%= message.message %></p>
                 </div>
             <% } %>     
         <% } %>     
